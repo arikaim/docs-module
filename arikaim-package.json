@@ -1,0 +1,15 @@
+{
+    "title": "Docs generator",
+    "name": "docs",
+    "package-type": "module",
+    "type": "package",
+    "description": "Rest Api docs generator.",
+    "version": "1.0.0",
+    "repository": "https://github.com/arikaim/docs-module.git",
+    "require": {
+        "composer": [
+            "doctrine/annotations"
+        ]
+    },     
+    "disabled": false
+}
