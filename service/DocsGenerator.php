@@ -35,20 +35,34 @@ class DocsGenerator extends Service implements ServiceInterface
      *
      * @param string $class
      * @param string $methodName
-     * @return mixed
+     * @return array|null
      */
-    public function getControllerInfo(string $class, string $methodName)
+    public function getControllerInfo(string $class, string $methodName): ?array
     {   
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiParameter.php');  
+        AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiResponse.php');
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/Api.php');
-
+       
         $reflection = new ReflectionClass($class);
         $methodName = ($reflection->hasMethod($methodName) == false) ? $methodName .'Controller' : $methodName;
         $method = $reflection->getMethod($methodName);
 
         $reader = new AnnotationReader();
-        $result = $reader->getMethodAnnotations($method);
+        $items = $reader->getMethodAnnotations($method);
+        if (\is_array($items) == false) {
+            return null;
+        }
 
+        $result = [];
+        foreach($items as $item) {
+            if (\get_class($item) == 'Api') {              
+                $result['api'] = $item;               
+            }
+            if (\get_class($item) == 'ApiResponse') {                       
+                $result['response'] = $item;
+            }
+        }
+       
         return $result;
     }
 }

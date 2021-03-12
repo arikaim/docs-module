@@ -11,7 +11,7 @@
 use Arikaim\Modules\Docs\Annotations\ApiParameter;
 
 /** 
- * @Annotation
+ * @Annotation 
  * @Target({"METHOD"})
 */
 class Api 
