@@ -1,10 +1,10 @@
 {
-    "title": "Docs generator",
+    "title": "Documentation",
     "name": "docs",
     "package-type": "module",
     "type": "package",
-    "description": "Rest Api docs generator.",
-    "version": "1.0.1",
+    "description": "Rest Api documentation generator.",
+    "version": "1.0.2",
     "repository": "https://github.com/arikaim/docs-module.git",
     "require": {
         "composer": [
