@@ -44,9 +44,12 @@ class DocsGenerator extends Service implements ServiceInterface
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/Api.php');
        
         $reflection = new ReflectionClass($class);
-        $methodName = ($reflection->hasMethod($methodName) == false) ? $methodName .'Controller' : $methodName;
+        $methodName = ($reflection->hasMethod($methodName) == false) ? $methodName . 'Controller' : $methodName;
+        if ($reflection->hasMethod($methodName) == false) {
+            return null;
+        }
+      
         $method = $reflection->getMethod($methodName);
-
         $reader = new AnnotationReader();
         $items = $reader->getMethodAnnotations($method);
         if (\is_array($items) == false) {
