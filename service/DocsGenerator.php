@@ -31,25 +31,25 @@ class DocsGenerator extends Service implements ServiceInterface
     }
 
     /**
-     * Undocumented function
+     * Get class api doc info
      *
      * @param string $class
      * @param string $methodName
      * @return array|null
      */
-    public function getControllerInfo(string $class, string $methodName): ?array
-    {   
+    public function getClassInfo(string $class, string $methodName): ?array
+    {
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiParameter.php');  
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiResponse.php');
         AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/Api.php');
        
         $reflection = new ReflectionClass($class);
-        $methodName = ($reflection->hasMethod($methodName) == false) ? $methodName . 'Controller' : $methodName;
         if ($reflection->hasMethod($methodName) == false) {
             return null;
         }
-      
+    
         $method = $reflection->getMethod($methodName);
+
         $reader = new AnnotationReader();
         $items = $reader->getMethodAnnotations($method);
         if (\is_array($items) == false) {
@@ -67,5 +67,19 @@ class DocsGenerator extends Service implements ServiceInterface
         }
        
         return $result;
+    }
+
+    /**
+     * Get controller api doc info
+     *
+     * @param string $class
+     * @param string $methodName
+     * @return array|null
+     */
+    public function getControllerInfo(string $class, string $methodName): ?array
+    {   
+        $result = $this->getClassInfo($class,$methodName);
+
+        return ($result == null) ? $this->getClassInfo($class,$methodName . 'Controller') : $result;         
     }
 }
