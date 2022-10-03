@@ -17,6 +17,9 @@ use Arikaim\Modules\Docs\Annotations\ApiParameter;
 class Api 
 {  
     /** @var string */
+    public $title;
+
+    /** @var string */
     public $description;
  
     /** @var array<ApiParameter> */
@@ -29,7 +32,8 @@ class Api
      */
     public function __construct(array $values)
     {
-        $this->description = $values['description'] ?? null;
+        $this->description = $values['description'] ?? '';
+        $this->title = $values['title'] ?? '';
         $this->parameters = $values['parameters'] ?? [];
     }    
 }

@@ -20,6 +20,9 @@ class ApiParameter
     public $type;
 
     /** @var string */
+    public $values;
+
+    /** @var string */
     public $description;
     
     /** @var bool */
