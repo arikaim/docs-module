@@ -4,7 +4,7 @@
     "package-type": "module",
     "type": "package",
     "description": "Rest Api documentation generator.",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "repository": "https://github.com/arikaim/docs-module.git",
     "require": {
         "composer": [

@@ -12,7 +12,6 @@ namespace Arikaim\Modules\Docs\Service;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-use Arikaim\Core\Utils\Path;
 use Arikaim\Core\Service\Service;
 use Arikaim\Core\Service\ServiceInterface;
 use ReflectionClass;
@@ -39,9 +38,15 @@ class DocsGenerator extends Service implements ServiceInterface
      */
     public function getClassInfo(string $class, string $methodName): ?array
     {
-        AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiParameter.php');  
-        AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/ApiResponse.php');
-        AnnotationRegistry::registerFile(Path::MODULES_PATH . 'docs/Annotations/Api.php');
+        global $arikaim;
+
+        $arikaim->get('class.loader')->LoadClassFile('Arikaim\Modules\Docs\Annotations\ApiParameter');
+        $arikaim->get('class.loader')->LoadClassFile('Arikaim\Modules\Docs\Annotations\Api');
+        $arikaim->get('class.loader')->LoadClassFile('Arikaim\Modules\Docs\Annotations\ApiResponse');
+      
+        AnnotationRegistry::loadAnnotationClass('Api');  
+        AnnotationRegistry::loadAnnotationClass('ApiParameter');  
+        AnnotationRegistry::loadAnnotationClass('ApiResponse');  
        
         $reflection = new ReflectionClass($class);
         if ($reflection->hasMethod($methodName) == false) {
