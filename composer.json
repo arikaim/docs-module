@@ -11,8 +11,7 @@
     }],
     "require": {       
         "arikaim/installer": "*" ,
-        "doctrine/annotations": "^1.14",
-        "doctrine/lexer": "^2.0"
+        "doctrine/annotations": "^2.0"       
     },
     "extra": {       
         "path": "docs"
