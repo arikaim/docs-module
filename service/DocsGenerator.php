@@ -23,11 +23,11 @@ use ReflectionClass;
 class DocsGenerator extends Service implements ServiceInterface
 {
     /**
-     * Constructor
-     */
-    public function __construct()
+     * Init service
+    */
+    public function boot()
     {
-        $this->setServiceName('docs');  
+        $this->setServiceName('docs');
     }
 
     /**
